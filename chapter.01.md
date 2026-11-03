@@ -105,28 +105,49 @@ iterations as the quotient. The faster way is using bit manipulation.
 
 ### 1.33.
 
-Race all horces in groups of 5 and get orderings `G(group,place)`.
+Put all horses in groups say A to E. Race all groups and create these
+orderings.
 
 ```txt
-G(1,1) > G(1,2) > G(1,3) > G(1,4) > G(1,5)
-G(2,1) > G(2,2) > G(2,3) > G(2,4) > G(2,5)
-G(3,1) > G(3,2) > G(3,3) > G(3,4) > G(3,5)
-G(4,1) > G(4,2) > G(4,3) > G(4,4) > G(4,5)
-G(5,1) > G(5,2) > G(5,3) > G(5,4) > G(5,5)
+A1 A2 A3 A4 A5
+B1 B2 B3 B4 B5
+C1 C2 C3 C4 C5
+D1 D2 D3 D4 D5
+E1 E2 E3 E4 E5
 ```
 
-Race all horses that finished first.
+Race all the first place horses.
 
 ```txt
-G(1,1), G(2,1), G(3,1), G(4,1), G(5,1)
+A1 B1 C1 D1 E1
 ```
 
-The winner of that race is the fastest horse and note the group of the winner
-`W`.
+Suppose that creates the ordering. If it doesn't just change the letters of the
+groups to make this ordering.
 
-The second fastest horse either came from `W` or another group. If it came from
-another group it definitely did not beat its group winner. If it came from the
-winning group then it would have been the next fastest horse so `G(W,2)`.
+```
+a b c d e
+```
 
-So we need to race `G(W,2)` and the remaining 4 `G(L,1)`s for all losing groups
-`L`. The winner of that race is the second fastest horse.
+The fastest horse is a. The second fastest cannot be any horse in group E.
+They are all slower than their group leader e who is also slower than d.
+
+```txt
+d > e > E2 > E3 > E4 > E5
+```
+
+Make a symmetric argument for group D
+
+```txt
+c > d > D2 > D3 > D4 > D5
+```
+
+The second and third horses could have come from group A but A3 is already
+faster than A4 and A5 so they are definitely not contenders. You can make the
+same argument
+
+```txt
+A1 A2 A3
+B1 B2 B3 B4 B5
+C1 C2 C3 C4 C5
+```
