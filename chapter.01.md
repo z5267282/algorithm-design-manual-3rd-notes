@@ -44,19 +44,6 @@ time(hume) = 2 * dist(parra) / 4 speed(parra)
            = 0.5 * time(parra)
 ```
 
-### 1.4.
-
-A trivial question if you defy geography e.g.
-
-```txt
-a -> b: 100km
-
-a -> c: 1km
-c -> b: 1km
-
-then a->c->b = 2km whereas a->b = 100km
-```
-
 ### 1.5.
 
 #### 1.5.a.
@@ -92,3 +79,54 @@ T=9, S={4,5,7}
 algo:{7}
 need:{4,5}
 ```
+
+### 1.6.
+
+Go for a tie: how do you pick when there are two largest subsets for the cover?
+
+```txt
+U5={1,2,3,4,5}
+
+S1={1,3,5}
+S2={1,4}
+S3={2,3,5}
+```
+
+The answer is `{S3,S2}`. `S1` and `S3` both cover three elements but if you
+pick `S1` you will be forced to pick `S2` and `S3` afterwards because there is
+no single subset with the elements missing: 4 and 5.
+
+## interview problems
+
+### 1.32.
+
+Keep adding the divisor until you hit the dividend and track the number of
+iterations as the quotient. The faster way is using bit manipulation.
+
+### 1.33.
+
+Race all horces in groups of 5 and get orderings `G(group,place)`.
+
+```txt
+G(1,1) > G(1,2) > G(1,3) > G(1,4) > G(1,5)
+G(2,1) > G(2,2) > G(2,3) > G(2,4) > G(2,5)
+G(3,1) > G(3,2) > G(3,3) > G(3,4) > G(3,5)
+G(4,1) > G(4,2) > G(4,3) > G(4,4) > G(4,5)
+G(5,1) > G(5,2) > G(5,3) > G(5,4) > G(5,5)
+```
+
+Race all horses that finished first.
+
+```txt
+G(1,1), G(2,1), G(3,1), G(4,1), G(5,1)
+```
+
+The winner of that race is the fastest horse and note the group of the winner
+`W`.
+
+The second fastest horse either came from `W` or another group. If it came from
+another group it definitely did not beat its group winner. If it came from the
+winning group then it would have been the next fastest horse so `G(W,2)`.
+
+So we need to race `G(W,2)` and the remaining 4 `G(L,1)`s for all losing groups
+`L`. The winner of that race is the second fastest horse.
